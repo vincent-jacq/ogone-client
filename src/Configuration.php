@@ -188,7 +188,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param mixed|null $value
      * @return $this
      */
-    public function setData($key, $value = null)
+    public function setData($key, $value = null): Configuration
     {
         if (is_string($key)) {
             $key = str_replace('.', '_', strtolower($key));

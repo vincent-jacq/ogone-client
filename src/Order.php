@@ -306,7 +306,7 @@ class Order extends Data
      */
     public function getAvailableAmountForRefund()
     {
-        return (float) bcsub($this->getAmount(), $this->getTotalRefunded(), 2);
+        return (float) bcsub($this->getAmount() ?? 0, $this->getTotalRefunded() ?? 0, 2);
     }
 
     /**
@@ -316,7 +316,7 @@ class Order extends Data
      */
     public function getAvailableAmountForCapture()
     {
-        return (float) bcsub($this->getAmount(), $this->getTotalCaptured(), 2);
+        return (float) bcsub($this->getAmount() ?? 0, $this->getTotalCaptured() ?? 0, 2);
     }
 
     /**
@@ -326,7 +326,7 @@ class Order extends Data
      */
     public function getAvailableAmountForCancel()
     {
-        return (float) bcsub($this->getAmount(), $this->getTotalCancelled(), 2);
+        return (float) bcsub($this->getAmount() ?? 0, $this->getTotalCancelled() ?? 0, 2);
     }
 
     /**

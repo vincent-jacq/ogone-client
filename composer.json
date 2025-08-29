@@ -1,7 +1,7 @@
 {
-    "name": "ingenico/ogone-client",
+    "name": "vincent-jacq/ogone-client",
     "description": "Ingenico ePayments Core Library",
-    "version": "7.1.0",
+    "version": "8.0.1",
     "license": [
         "OSL-3.0"
     ],
@@ -21,15 +21,15 @@
         "email": "support.ecom@ingenico.com"
     },
     "require": {
-        "php": ">=7.0",
+        "php": ">=8.2",
         "ext-curl": "*",
         "ext-mbstring": "*",
         "ext-bcmath": "*",
         "ingenico/ogone-sdk-php": "^3.1.0",
         "monolog/monolog": "*",
         "league/iso3166": "*",
-        "graylog2/gelf-php": "~1.5",
-        "symfony/translation": "~4.2",
+        "graylog2/gelf-php": "^2.0",
+        "symfony/translation": "^6.4",
         "mobiledetect/mobiledetectlib": "~2.8.0",
         "viison/address-splitter": "~0.3.4"
     },

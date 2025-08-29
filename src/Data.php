@@ -13,7 +13,7 @@ class Data implements \ArrayAccess
      * @param $key
      * @return bool
      */
-    public function hasData($key)
+    public function hasData($key): bool
     {
         return isset($this->data[$key]);
     }
@@ -21,9 +21,9 @@ class Data implements \ArrayAccess
     /**
      * Get Data
      * @param mixed $key
-     * @return array|mixed
+     * @return mixed
      */
-    public function getData($key = null)
+    public function getData($key = null): mixed
     {
         if (!$key) {
             return $this->data;
@@ -38,7 +38,7 @@ class Data implements \ArrayAccess
      * @param mixed|null $value
      * @return $this
      */
-    public function setData($key, $value = null)
+    public function setData($key, $value = null): Data
     {
         if (is_array($key)) {
             foreach ($key as $key1 => $value1) {
@@ -60,7 +60,7 @@ class Data implements \ArrayAccess
      * @param $key
      * @return $this
      */
-    public function unsData($key)
+    public function unsData($key): Data
     {
         if ($this->hasData($key)) {
             unset($this->data[$key]);
@@ -73,7 +73,7 @@ class Data implements \ArrayAccess
      * Get Data as array
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->data;
     }
@@ -85,7 +85,7 @@ class Data implements \ArrayAccess
      * @param   array $args
      * @return  mixed
      */
-    public function __call($method, $args)
+    public function __call($method, $args): mixed
     {
         switch (substr($method, 0, 3)) {
             case 'get':
@@ -115,7 +115,7 @@ class Data implements \ArrayAccess
      * @return void
      * @link http://www.php.net/manual/en/arrayaccess.offsetset.php
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->data[$offset] = $value;
     }
@@ -127,7 +127,7 @@ class Data implements \ArrayAccess
      * @return bool
      * @link http://www.php.net/manual/en/arrayaccess.offsetexists.php
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->hasData($offset);
     }
@@ -139,7 +139,7 @@ class Data implements \ArrayAccess
      * @return void
      * @link http://www.php.net/manual/en/arrayaccess.offsetunset.php
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->unsData($offset);
     }
@@ -151,7 +151,7 @@ class Data implements \ArrayAccess
      * @return mixed
      * @link http://www.php.net/manual/en/arrayaccess.offsetget.php
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->getData($offset);
     }
@@ -162,7 +162,7 @@ class Data implements \ArrayAccess
      * @param string $name
      * @return string
      */
-    protected function underscore($name)
+    protected function underscore($name): string
     {
         return strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $name));
     }

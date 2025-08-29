@@ -2043,7 +2043,7 @@ class IngenicoCoreLibrary implements
         }
 
         // Word-wrap of street address
-        if (mb_strlen($info[OrderField::BILLING_ADDRESS1], 'UTF-8') > 35) {
+        if (mb_strlen($info[OrderField::BILLING_ADDRESS1] ?? '', 'UTF-8') > 35) {
             $billingAddress1 = $info[OrderField::BILLING_ADDRESS1];
             $info[OrderField::BILLING_ADDRESS1] = mb_substr($billingAddress1, 0, 35, 'UTF-8');
             $info[OrderField::BILLING_ADDRESS2] = mb_substr(trim(
@@ -2051,13 +2051,15 @@ class IngenicoCoreLibrary implements
             ), 0, 35, 'UTF-8');
         }
 
-        if (mb_strlen($info[OrderField::SHIPPING_ADDRESS1], 'UTF-8') > 35) {
+        if (mb_strlen($info[OrderField::SHIPPING_ADDRESS1] ?? '', 'UTF-8') > 35) {
             $shippingAddress1 = $info[OrderField::SHIPPING_ADDRESS1];
             $info[OrderField::SHIPPING_ADDRESS1] = mb_substr($shippingAddress1, 0, 35, 'UTF-8');
             $info[OrderField::SHIPPING_ADDRESS2] = mb_substr(trim(
                 mb_substr($shippingAddress1, 35, null, 'UTF-8') . ' ' . $info[OrderField::SHIPPING_ADDRESS2]
             ), 0, 35, 'UTF-8');
         }
+
+        $this->filterInfoData($info);
 
         return new Order($info);
     }
@@ -2143,7 +2145,7 @@ class IngenicoCoreLibrary implements
         }
 
         // Word-wrap of street address
-        if (mb_strlen($info[OrderField::BILLING_ADDRESS1], 'UTF-8') > 35) {
+        if (mb_strlen($info[OrderField::BILLING_ADDRESS1] ?? '', 'UTF-8') > 35) {
             $billingAddress1 = $info[OrderField::BILLING_ADDRESS1];
             $info[OrderField::BILLING_ADDRESS1] = mb_substr($billingAddress1, 0, 35, 'UTF-8');
             $info[OrderField::BILLING_ADDRESS2] = mb_substr(trim(
@@ -2151,13 +2153,15 @@ class IngenicoCoreLibrary implements
             ), 0, 35, 'UTF-8');
         }
 
-        if (mb_strlen($info[OrderField::SHIPPING_ADDRESS1], 'UTF-8') > 35) {
+        if (mb_strlen($info[OrderField::SHIPPING_ADDRESS1] ?? '', 'UTF-8') > 35) {
             $shippingAddress1 = $info[OrderField::SHIPPING_ADDRESS1];
             $info[OrderField::SHIPPING_ADDRESS1] = mb_substr($shippingAddress1, 0, 35, 'UTF-8');
             $info[OrderField::SHIPPING_ADDRESS2] = mb_substr(trim(
                 mb_substr($shippingAddress1, 35, null, 'UTF-8') . ' ' . $info[OrderField::SHIPPING_ADDRESS2]
             ), 0, 35, 'UTF-8');
         }
+
+        $this->filterInfoData($info);
 
         return new Order($info);
     }
@@ -3530,6 +3534,41 @@ class IngenicoCoreLibrary implements
                         $this->extension->enqueueReminder($orderId);
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Custom method to add length filters to trim every fields sent to Ingenico
+     *
+     * @param array $info
+     */
+    private function filterInfoData(array &$info): void
+    {
+        $filters = [
+            // city
+            OrderField::BILLING_CITY => 25,
+            OrderField::SHIPPING_CITY => 25,
+            // post code
+            OrderField::BILLING_POSTCODE => 10,
+            OrderField::SHIPPING_POSTCODE => 10,
+            // email
+            OrderField::BILLING_EMAIL => 50,
+            OrderField::SHIPPING_EMAIL => 50,
+            // phone number
+            OrderField::BILLING_PHONE => 20,
+            OrderField::SHIPPING_PHONE => 20,
+            // name
+            OrderField::BILLING_CUSTOMER_TITLE => 5,
+            OrderField::SHIPPING_CUSTOMER_TITLE => 5,
+            OrderField::BILLING_FIRST_NAME => 35,
+            OrderField::SHIPPING_FIRST_NAME => 35,
+            OrderField::BILLING_LAST_NAME => 35,
+            OrderField::SHIPPING_LAST_NAME => 35
+        ];
+        foreach ($filters as $field => $length) {
+            if (isset($info[$field]) && mb_strlen($info[$field] ?? '') > $length) {
+                $info[$field] = mb_substr($info[$field], 0, $length, 'UTF-8');
             }
         }
     }

@@ -58,7 +58,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getOrderId($default = null)
+    public function getOrderId($default = null): mixed
     {
         return $this->getParam(self::ORDERID, $default);
     }
@@ -68,7 +68,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getPayId($default = null)
+    public function getPayId($default = null): mixed
     {
         return $this->getParam(self::PAYID, $default);
     }
@@ -78,7 +78,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getPayIdSub($default = null)
+    public function getPayIdSub($default = null): mixed
     {
         return $this->getParam(self::PAYIDSUB, $default);
     }
@@ -88,7 +88,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getPM($default = null)
+    public function getPM($default = null): mixed
     {
         return $this->getParam(self::PM, $default);
     }
@@ -98,7 +98,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getBrand($default = null)
+    public function getBrand($default = null): mixed
     {
         return $this->getParam(self::BRAND, $default);
     }
@@ -108,7 +108,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getCardNo($default = null)
+    public function getCardNo($default = null): mixed
     {
         return $this->getParam(self::CARDNO, $default);
     }
@@ -118,7 +118,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getAmount($default = null)
+    public function getAmount($default = null): mixed
     {
         return $this->getParam(self::AMOUNT, $default);
     }
@@ -128,7 +128,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getCurrency($default = null)
+    public function getCurrency($default = null): mixed
     {
         return $this->getParam(self::CURRENCY, $default);
     }
@@ -138,7 +138,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getStatus($default = null)
+    public function getStatus($default = null): mixed
     {
         return $this->getParam(self::STATUS, $default);
     }
@@ -148,7 +148,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getNCError($default = null)
+    public function getNCError($default = null): mixed
     {
         return $this->getParam(self::NCERROR, $default);
     }
@@ -158,7 +158,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getNCErrorPlus($default = null)
+    public function getNCErrorPlus($default = null): mixed
     {
         return $this->getParam(self::NCERRORPLUS, $default);
     }
@@ -168,7 +168,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getAliasID($default = null)
+    public function getAliasID($default = null): mixed
     {
         return $this->getParam(self::ALIAS_ID, $default);
     }
@@ -178,7 +178,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getAliasOrderID($default = null)
+    public function getAliasOrderID($default = null): mixed
     {
         return $this->getParam(self::ALIAS_ORDERID, $default);
     }
@@ -188,7 +188,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return int
      */
-    public function getAliasStatus($default = null)
+    public function getAliasStatus($default = null): int
     {
         return (int) $this->getParam(self::ALIAS_STATUS, $default);
     }
@@ -198,7 +198,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return bool
      */
-    public function getAliasStorePermanently($default = null)
+    public function getAliasStorePermanently($default = null): bool
     {
         return $this->getParam(self::ALIAS_STOREPERMANENTLY, $default) === 'Y';
     }
@@ -208,7 +208,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getCardBrand($default = null)
+    public function getCardBrand($default = null): mixed
     {
         return $this->getParam(self::CARD_BRAND, $default);
     }
@@ -218,7 +218,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getCardNumber($default = null)
+    public function getCardNumber($default = null): mixed
     {
         return $this->getParam(self::CARD_NUMBER, $default);
     }
@@ -228,7 +228,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getCardBin($default = null)
+    public function getCardBin($default = null): mixed
     {
         return $this->getParam(self::CARD_BIN, $default);
     }
@@ -238,7 +238,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getCardExpiryDate($default = null)
+    public function getCardExpiryDate($default = null): mixed
     {
         return $this->getParam(self::CARD_EXPIRY_DATE, $default);
     }
@@ -249,7 +249,7 @@ class Request implements \ArrayAccess
      * @param mixed|null $default
      * @return mixed
      */
-    public function getParam($name, $default = null)
+    public function getParam($name, $default = null): mixed
     {
         return $this->hasParam($name) ? $this->data[$name] : $default;
     }
@@ -259,7 +259,7 @@ class Request implements \ArrayAccess
      * @param $name
      * @return bool
      */
-    public function hasParam($name)
+    public function hasParam($name): bool
     {
         return isset($this->data[$name]);
     }
@@ -268,7 +268,7 @@ class Request implements \ArrayAccess
      * Is have Alias
      * @return bool
      */
-    public function hasAlias()
+    public function hasAlias(): bool
     {
         return $this->getAliasID(false) !== false;
     }
@@ -277,7 +277,7 @@ class Request implements \ArrayAccess
      * Is Alias Stored Success
      * @return bool
      */
-    public function isAliasStoredSuccess()
+    public function isAliasStoredSuccess(): bool
     {
         return in_array($this->getAliasStatus(), [self::ALIAS_STATUS_OK, self::ALIAS_STATUS_UPDATED]);
     }
@@ -286,7 +286,7 @@ class Request implements \ArrayAccess
      * Get Alias Card Data
      * @return array
      */
-    public function getAliasData()
+    public function getAliasData(): array
     {
         return [
             'ALIAS' => $this->getAliasID(),
@@ -306,7 +306,7 @@ class Request implements \ArrayAccess
      * @return void
      * @link http://www.php.net/manual/en/arrayaccess.offsetset.php
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->data[] = $value;
@@ -322,7 +322,7 @@ class Request implements \ArrayAccess
      * @return bool
      * @link http://www.php.net/manual/en/arrayaccess.offsetexists.php
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
@@ -334,7 +334,7 @@ class Request implements \ArrayAccess
      * @return void
      * @link http://www.php.net/manual/en/arrayaccess.offsetunset.php
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->data[$offset]);
     }
@@ -346,7 +346,7 @@ class Request implements \ArrayAccess
      * @return mixed
      * @link http://www.php.net/manual/en/arrayaccess.offsetget.php
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->data[$offset]) ? $this->data[$offset] : null;
     }
@@ -360,7 +360,7 @@ class Request implements \ArrayAccess
      * @return mixed
      * @throws Exception
      */
-    public function __call($method, $arguments)
+    public function __call($method, $arguments): mixed
     {
         $key = lcfirst(mb_substr($method, 3, mb_strlen($method, 'UTF-8'), 'UTF-8'));
         switch (mb_substr($method, 0, 3, 'UTF-8')) {

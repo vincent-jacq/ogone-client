@@ -229,7 +229,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get Category Name
      * @return string
      */
-    public function getCategoryName()
+    public function getCategoryName(): string
     {
         return $this->category_name;
     }
@@ -248,7 +248,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $pm
      * @return $this
      */
-    public function setPM($pm)
+    public function setPM($pm): PaymentMethod
     {
         $this->pm = $pm;
 
@@ -269,7 +269,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $brand
      * @return $this
      */
-    public function setBrand($brand)
+    public function setBrand($brand): PaymentMethod
     {
         $this->brand = $brand;
 
@@ -282,7 +282,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $pm
      * @return $this
      */
-    public function setPMByCountry($country, $pm)
+    public function setPMByCountry($country, $pm): PaymentMethod
     {
         $this->pm_per_country[$country] = $pm;
 
@@ -300,7 +300,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
             return $this->pm_per_country[$country];
         }
 
-        return null;
+        return '';
     }
 
     /**
@@ -309,7 +309,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $brand
      * @return $this
      */
-    public function setBrandByCountry($country, $brand)
+    public function setBrandByCountry($country, $brand): PaymentMethod
     {
         $this->brand_per_country[$country] = $brand;
 
@@ -319,7 +319,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
     /**
      * Get Brand by Country Code
      * @param string $country
-     * @return string
+     * @return string|null
      */
     public function getBrandByCountry($country)
     {
@@ -358,7 +358,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param $checkout_type
      * @return array
      */
-    public function getExpectedFields($checkout_type)
+    public function getExpectedFields($checkout_type): array
     {
         return array_merge($this->getCommonFields(), $this->getAdditionalFields($checkout_type));
     }
@@ -394,7 +394,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Is Security Mandatory
      * @return bool
      */
-    public function isSecurityMandatory()
+    public function isSecurityMandatory(): bool
     {
         return $this->is_security_mandatory;
     }
@@ -412,7 +412,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Is support Redirect only
      * @return bool
      */
-    public function isRedirectOnly()
+    public function isRedirectOnly(): bool
     {
         return $this->is_redirect_only;
     }
@@ -421,7 +421,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Is Hidden
      * @return bool
      */
-    public function isHidden()
+    public function isHidden(): bool
     {
         return $this->is_hidden;
     }
@@ -448,7 +448,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Is support Two Phase Flow
      * @return bool
      */
-    public function isTwoPhaseFlow()
+    public function isTwoPhaseFlow(): bool
     {
         return $this->two_phase_flow;
     }
@@ -498,7 +498,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get data
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return get_object_vars($this);
     }
@@ -510,7 +510,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param   array $args
      * @return  mixed
      */
-    public function __call($method, $args)
+    public function __call($method, $args): mixed
     {
         switch (substr($method, 0, 3)) {
             case 'get':
@@ -540,7 +540,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @return void
      * @link http://www.php.net/manual/en/arrayaccess.offsetset.php
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->$offset = $value;
     }
@@ -552,7 +552,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @return bool
      * @link http://www.php.net/manual/en/arrayaccess.offsetexists.php
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return property_exists($this, $offset);
     }
@@ -564,7 +564,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @return void
      * @link http://www.php.net/manual/en/arrayaccess.offsetunset.php
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         if (property_exists($this, $offset)) {
             unset($this->$offset);
@@ -578,7 +578,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @return mixed
      * @link http://www.php.net/manual/en/arrayaccess.offsetget.php
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         if (property_exists($this, $offset)) {
             return $this->$offset;
@@ -593,9 +593,9 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $name
      * @return string
      */
-    protected function underscore($name)
+    protected function underscore($name): string
     {
-        return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name));
+        return strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $name ?? ''));
     }
 
     /**
@@ -605,7 +605,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param $name
      * @return string
      */
-    protected function camelize($name)
+    protected function camelize($name): string
     {
         return $this->ucWords($name, '');
     }
@@ -620,8 +620,8 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $srcSep
      * @return string
      */
-    protected function ucWords($str, $destSep = '_', $srcSep = '_')
+    protected function ucWords($str, $destSep = '_', $srcSep = '_'): string
     {
-        return str_replace(' ', $destSep, ucwords(str_replace($srcSep, ' ', $str)));
+        return str_replace(' ', $destSep, ucwords(str_replace($srcSep, ' ', $str ?? '')));
     }
 }
