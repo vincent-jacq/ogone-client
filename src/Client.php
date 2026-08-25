@@ -59,8 +59,6 @@ class Client
             $errno = curl_errno($ch);
         }
 
-        curl_close($ch);
-
         if ($this->logger) {
             $this->logger->debug(sprintf('Post request to: %s', $url), [
                 'url' => $url,
