@@ -37,7 +37,7 @@ class ReturnUrl extends Data
      *
      * @return string[]
      */
-    public function getUrls()
+    public function getUrls(): array
     {
         return [
             'accept' => $this->getAcceptUrl(),

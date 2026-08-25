@@ -102,7 +102,7 @@ class MailTemplate
      * @param string $templates_directory
      * @return $this
      */
-    public function setTemplatesDirectory($templates_directory)
+    public function setTemplatesDirectory($templates_directory): static
     {
         $this->templates_directory = $templates_directory;
 
@@ -119,7 +119,7 @@ class MailTemplate
      *
      * @throws Exception
      */
-    private function getMessage($type, $includeLayout = true)
+    private function getMessage($type, $includeLayout = true): false|string
     {
         if (!in_array($type, [self::TYPE_HTML, self::TYPE_PLAIN_TEXT])) {
             throw new Exception('Wrong type argument');
@@ -141,7 +141,7 @@ class MailTemplate
      *
      * @throws Exception
      */
-    public function getHtml($includeLayout = true)
+    public function getHtml($includeLayout = true): false|string
     {
         return $this->getMessage(self::TYPE_HTML, $includeLayout);
     }
@@ -154,7 +154,7 @@ class MailTemplate
      *
      * @throws Exception
      */
-    public function getPlainText($includeLayout = true)
+    public function getPlainText($includeLayout = true): false|string
     {
         return $this->getMessage(self::TYPE_PLAIN_TEXT, $includeLayout);
     }
@@ -166,7 +166,7 @@ class MailTemplate
      * @return string
      * @throws Exception
      */
-    private function lookupTemplate($template, $type)
+    private function lookupTemplate($template, $type): string
     {
         // Clean up variables
         $template = preg_replace('/[^a-zA-Z0-9_-]+/', '', $template);
@@ -199,7 +199,7 @@ class MailTemplate
      * @return string
      * @throws Exception
      */
-    private function lookupLayout($layout, $type)
+    private function lookupLayout($layout, $type): string
     {
         // Clean up variables
         $layout = preg_replace('/[^a-zA-Z0-9_-]+/', '', $layout);
@@ -237,7 +237,7 @@ class MailTemplate
      *
      * @throws Exception
      */
-    public function renderTemplate($layout, $template, $type, array $fields)
+    public function renderTemplate($layout, $template, $type, array $fields): false|string
     {
         $template = preg_replace('/[^a-zA-Z0-9_-]+/', '', $template);
         $type = preg_replace('/[^a-zA-Z0-9_-]+/', '', $type);
@@ -286,7 +286,7 @@ class MailTemplate
      *
      * @return string
      */
-    public function __($id, $parameters = [], $domain = null, $locale = null)
+    public function __($id, $parameters = [], $domain = null, $locale = null): string
     {
         return $this->translator->trans($id, $parameters, $domain, $locale);
     }
@@ -298,7 +298,7 @@ class MailTemplate
      *
      * @return string
      */
-    public function embedImage($file)
+    public function embedImage($file): false|string
     {
         $size = getimagesize($file);
         if ($size) {

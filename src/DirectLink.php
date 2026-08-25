@@ -28,7 +28,7 @@ class DirectLink
      * @param LoggerInterface|null $logger
      * @return $this
      */
-    public function setLogger(LoggerInterface $logger = null)
+    public function setLogger(?LoggerInterface $logger = null): static
     {
         $this->logger = $logger;
 
@@ -40,7 +40,7 @@ class DirectLink
      *
      * @return LoggerInterface|null
      */
-    public function getLogger()
+    public function getLogger(): ?LoggerInterface
     {
         return $this->logger;
     }
@@ -62,7 +62,8 @@ class DirectLink
         $payId,
         $amount,
         $isPartially
-    ) {
+    ): Payment
+    {
         $operation = $isPartially ?
             MaintenanceOperation::OPERATION_REFUND_PARTIAL : MaintenanceOperation::OPERATION_REFUND_LAST_OR_FULL;
 
@@ -93,7 +94,8 @@ class DirectLink
         $payId,
         $amount,
         $isPartially
-    ) {
+    ): Payment
+    {
         $operation = $isPartially ?
             MaintenanceOperation::OPERATION_CAPTURE_PARTIAL : MaintenanceOperation::OPERATION_CAPTURE_LAST_OR_FULL;
 
@@ -124,7 +126,8 @@ class DirectLink
         $payId,
         $amount,
         $isPartially
-    ) {
+    ): Payment
+    {
         $operation = $isPartially ?
             MaintenanceOperation::OPERATION_AUTHORISATION_DELETE :
             MaintenanceOperation::OPERATION_AUTHORISATION_DELETE_AND_CLOSE;
@@ -163,7 +166,8 @@ class DirectLink
         $amount,
         array $items,
         MaintenanceOperation $operation
-    ) {
+    ): Payment
+    {
         $maintenanceRequest = new DirectLinkMaintenanceRequest($configuration->getShaComposer());
         $maintenanceRequest->setOgoneUri($configuration->getApiMaintenancedirect());
 
@@ -231,7 +235,8 @@ class DirectLink
         $orderId,
         $payId,
         $payIdSub
-    ) {
+    ): Payment
+    {
         $queryRequest = new DirectLinkQueryRequest($configuration->getShaComposer());
         $queryRequest->setOgoneUri($configuration->getApiQuerydirect());
 

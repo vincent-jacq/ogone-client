@@ -58,7 +58,7 @@ class Alias extends Data
      * Pseudo for getAliasId()
      * @return mixed
      */
-    public function getId()
+    public function getId(): mixed
     {
         return $this->getAliasId();
     }
@@ -67,7 +67,7 @@ class Alias extends Data
      * Get Formatted Name
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         $brand = $this->getBrand() === 'CB' ? 'Carte Bancaire' : $this->getBrand();
 
@@ -85,7 +85,7 @@ class Alias extends Data
      * Get Payment Method Instance
      * @return PaymentMethod\PaymentMethod
      */
-    public function getPaymentMethod()
+    public function getPaymentMethod(): PaymentMethod\PaymentMethod
     {
         if ($this->getPaymentId() && $paymentMethod = PaymentMethod::getPaymentMethodById($this->getPaymentId())) {
             // Map payment_id property as PaymentMethod->id
@@ -110,7 +110,7 @@ class Alias extends Data
      * Get Logo
      * @return string
      */
-    public function getEmbeddedLogo()
+    public function getEmbeddedLogo(): string
     {
         try {
             return $this->getPaymentMethod()->getEmbeddedLogo();
@@ -123,7 +123,7 @@ class Alias extends Data
      * Get Alias instance of SDK
      * @return \Ogone\Ecommerce\Alias
      */
-    public function exchange()
+    public function exchange(): \Ogone\Ecommerce\Alias
     {
         return new \Ogone\Ecommerce\Alias($this->getAlias(), $this->getOperation(), $this->getUsage());
     }
@@ -133,7 +133,7 @@ class Alias extends Data
      *
      * @return \Ogone\DirectLink\Alias
      */
-    public function exchangeDirectLink()
+    public function exchangeDirectLink(): \Ogone\DirectLink\Alias
     {
         return (new \Ogone\DirectLink\Alias(
             $this->getAlias(),

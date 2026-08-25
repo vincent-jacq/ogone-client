@@ -15,14 +15,14 @@ class Client
     /**
      * Request constructor.
      *
-     * @param LoggerInterface $logger
+     * @param LoggerInterface|null $logger
      */
-    public function __construct(LoggerInterface $logger = null)
+    public function __construct(?LoggerInterface $logger = null)
     {
         $this->logger = $logger;
     }
 
-    public function post(array $params, $url, $shaSign)
+    public function post(array $params, $url, $shaSign): bool|string
     {
         $body = [];
 

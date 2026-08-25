@@ -31,7 +31,7 @@ trait HostedCheckout
      * @param Alias $alias
      * @return Data
      */
-    public function initiateRedirectPayment($orderId, Alias $alias)
+    public function initiateRedirectPayment($orderId, Alias $alias): Data
     {
         $order = $this->getOrder($orderId);
 
@@ -57,7 +57,7 @@ trait HostedCheckout
      * @return EcommercePaymentRequest
      * @throws \Exception
      */
-    public function getHostedCheckoutPaymentRequest(Order $order, Alias $alias)
+    public function getHostedCheckoutPaymentRequest(Order $order, Alias $alias): EcommercePaymentRequest
     {
         // Convert customer dob to timestamp if needs
         if ($order->hasCustomerDob() && is_string($order->getCustomerDob())) {
@@ -474,7 +474,8 @@ trait HostedCheckout
         $paymentMethod,
         $brand,
         $paymentId = null
-    ) {
+    ): Data
+    {
         $order = $this->getOrder($orderId);
 
         if (!$paymentMethod || !$brand) {
@@ -539,7 +540,7 @@ trait HostedCheckout
      * @param Order $order
      * @return AbstractPaymentRequest
      */
-    public static function copyOrderDataToPaymentRequest(AbstractPaymentRequest $request, Order $order)
+    public static function copyOrderDataToPaymentRequest(AbstractPaymentRequest $request, Order $order): AbstractPaymentRequest
     {
         // Set values for Request instance
         $request->setOrderId($order->getOrderId())
@@ -586,7 +587,7 @@ trait HostedCheckout
      * @param Order $order
      * @return AbstractPaymentRequest
      */
-    public static function copyBrowserDataToPaymentRequest(AbstractPaymentRequest $request, Order $order)
+    public static function copyBrowserDataToPaymentRequest(AbstractPaymentRequest $request, Order $order): AbstractPaymentRequest
     {
         $request->setBrowseracceptheader($order->getHttpAccept());
         $request->setBrowseruseragent($order->getHttpUserAgent());
@@ -617,7 +618,7 @@ trait HostedCheckout
      *
      * @return mixed
      */
-    public function validateHostedCheckoutResponse($response)
+    public function validateHostedCheckoutResponse($response): mixed
     {
         $ecommercePaymentResponse = new EcommercePaymentResponse($response);
 

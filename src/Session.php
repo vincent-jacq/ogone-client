@@ -13,7 +13,7 @@ trait Session
      *
      * @return array
      */
-    public function getSessionValues()
+    public function getSessionValues(): array
     {
         $values = $this->extension->getSessionValues();
 
@@ -32,7 +32,7 @@ trait Session
      * @param string $key
      * @return mixed
      */
-    public function getSessionValue($key)
+    public function getSessionValue($key): mixed
     {
         $value = $this->extension->getSessionValue($key);
 
@@ -50,7 +50,7 @@ trait Session
      * @param mixed $value
      * @return void
      */
-    public function setSessionValue($key, $value)
+    public function setSessionValue($key, $value): void
     {
         if (is_array($value) || is_object($value)) {
             $value = serialize($value);
@@ -65,7 +65,7 @@ trait Session
      * @param $key
      * @return void
      */
-    public function unsetSessionValue($key)
+    public function unsetSessionValue($key): void
     {
         $this->extension->unsetSessionValue($key);
     }

@@ -18,7 +18,7 @@ trait OpenInvoice
      * @param array $fields Order fields
      * @return array
      */
-    public function getMissingOrderFields($orderId, PaymentMethodInterface $paymentMethod, array $fields = [])
+    public function getMissingOrderFields($orderId, PaymentMethodInterface $paymentMethod, array $fields = []): array
     {
         if (!$paymentMethod->getAdditionalDataRequired()) {
             throw new Exception(sprintf('Unable to use "%s" as Open Invoice method.', $paymentMethod->getId()));
@@ -94,7 +94,7 @@ trait OpenInvoice
      * @param array $fields
      * @return array
      */
-    private function validateAdditionalFields(array $additionalFields, array $fields = [])
+    private function validateAdditionalFields(array $additionalFields, array $fields = []): array
     {
         // Check Open Invoice fields
         foreach ($additionalFields as &$field) {
@@ -135,7 +135,7 @@ trait OpenInvoice
      * @param array $additionalFields
      * @return bool
      */
-    private function haveInvalidAdditionalFields(array $additionalFields)
+    private function haveInvalidAdditionalFields(array $additionalFields): bool
     {
         foreach ($additionalFields as &$field) {
             if (!$field->getIsValid()) {
@@ -154,7 +154,7 @@ trait OpenInvoice
      * @return array
      * @throws Exception
      */
-    public function validateOpenInvoiceCheckoutAdditionalFields($orderId, PaymentMethodInterface $paymentMethod)
+    public function validateOpenInvoiceCheckoutAdditionalFields($orderId, PaymentMethodInterface $paymentMethod): array
     {
         if (!$paymentMethod->getAdditionalDataRequired()) {
             throw new Exception(sprintf('Unable to use "%s" as Open Invoice method.', $paymentMethod->getId()));
@@ -198,7 +198,7 @@ trait OpenInvoice
      * @param array $fields Checkout Fields
      * @throws \Exception
      */
-    public function initiateOpenInvoicePayment($orderId, $alias, array $fields = [])
+    public function initiateOpenInvoicePayment($orderId, $alias, array $fields = []): void
     {
         $paymentMethod = $alias->getPaymentMethod();
         if (!$paymentMethod->getAdditionalDataRequired()) {

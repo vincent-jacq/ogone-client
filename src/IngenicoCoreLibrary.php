@@ -794,7 +794,7 @@ class IngenicoCoreLibrary implements
      *
      * @return LoggerInterface|null
      */
-    public function getLogger()
+    public function getLogger(): \Psr\Log\NullLogger|LoggerInterface|null
     {
         return $this->logger;
     }
@@ -806,7 +806,7 @@ class IngenicoCoreLibrary implements
      *
      * @return $this
      */
-    public function setLogger(LoggerInterface $logger = null)
+    public function setLogger(?LoggerInterface $logger = null): static
     {
         if ($logger) {
             $this->logger = $logger;
@@ -824,7 +824,7 @@ class IngenicoCoreLibrary implements
      * @param string|null $locale
      * @return string
      */
-    public function __($id, array $parameters = [], $domain = null, $locale = null)
+    public function __($id, array $parameters = [], $domain = null, $locale = null): string
     {
         return $this->translator->trans($id, $parameters, $domain, $locale);
     }
@@ -836,7 +836,7 @@ class IngenicoCoreLibrary implements
      * @param string|null $domain
      * @return array
      */
-    public function getAllTranslations($locale, $domain = null)
+    public function getAllTranslations($locale, $domain = null): array
     {
         if (!$domain) {
             $result = [];
@@ -857,7 +857,7 @@ class IngenicoCoreLibrary implements
      * @param $errorCode
      * @return mixed|string
      */
-    public static function getErrorDescription($errorCode)
+    public static function getErrorDescription($errorCode): mixed
     {
         if (isset(self::$errorCodes[$errorCode])) {
             return self::$errorCodes[$errorCode];
@@ -871,7 +871,7 @@ class IngenicoCoreLibrary implements
      *
      * @return array
      */
-    public function getDefaultSettings()
+    public function getDefaultSettings(): array
     {
         return $this->configuration->getDefault();
     }
@@ -881,7 +881,7 @@ class IngenicoCoreLibrary implements
      *
      * @return Configuration
      */
-    public function getConfiguration()
+    public function getConfiguration(): Configuration
     {
         return $this->configuration;
     }
@@ -893,7 +893,7 @@ class IngenicoCoreLibrary implements
      * @return Configuration
      * @throws Exception
      */
-    public function setGenericCountry($country)
+    public function setGenericCountry($country): Configuration
     {
         return $this->configuration
             ->setData('generic_country', $country)
@@ -904,7 +904,7 @@ class IngenicoCoreLibrary implements
      * Get Generic Merchant Country.
      * @return string|null
      */
-    public function getGenericCountry()
+    public function getGenericCountry(): ?string
     {
         if (method_exists($this->extension, 'getGenericCountry')) {
             return $this->extension->getGenericCountry();
@@ -919,7 +919,7 @@ class IngenicoCoreLibrary implements
      * @param string $templates_directory
      * @return $this
      */
-    public function setMailTemplatesDirectory($templates_directory)
+    public function setMailTemplatesDirectory($templates_directory): static
     {
         $this->mail_templates_directory = $templates_directory;
 
@@ -931,7 +931,7 @@ class IngenicoCoreLibrary implements
      *
      * @return string
      */
-    public function getMailTemplatesDirectory()
+    public function getMailTemplatesDirectory(): string
     {
         return $this->mail_templates_directory;
     }
@@ -944,7 +944,7 @@ class IngenicoCoreLibrary implements
      * @param string|null $paymentMode
      * @return ReturnUrl
      */
-    private function requestReturnUrls($orderId, $paymentMode = null)
+    private function requestReturnUrls($orderId, $paymentMode = null): ReturnUrl
     {
         if (!$orderId) {
             $orderId = $this->extension->requestOrderId();
@@ -992,7 +992,7 @@ class IngenicoCoreLibrary implements
      * @return void
      * @throws Exception
      */
-    public function processReturnUrls()
+    public function processReturnUrls(): void
     {
         $paymentMode = isset($_REQUEST['payment_mode']) ? $_REQUEST['payment_mode'] : null;
         $returnState = isset($_REQUEST['return_state']) ? $_REQUEST['return_state'] : null;
@@ -1111,7 +1111,7 @@ class IngenicoCoreLibrary implements
      * @return void
      * @throws Exception
      */
-    private function processReturnRedirect()
+    private function processReturnRedirect(): void
     {
         $valid = $this->validatePaymentResponse($_REQUEST);
         if ($_REQUEST['BRAND'] === 'Bancontact/Mister Cash') {
@@ -1214,7 +1214,7 @@ class IngenicoCoreLibrary implements
      * @return void
      * @throws Exception
      */
-    private function processReturnInline()
+    private function processReturnInline(): void
     {
         $orderId = $_REQUEST[self::ALIAS_ORDERID];
         $aliasId = $_REQUEST[self::ALIAS_ID];
@@ -1314,7 +1314,7 @@ class IngenicoCoreLibrary implements
      *
      * @return array
      */
-    public function finishReturnInline($orderId, $cardBrand, $aliasId)
+    public function finishReturnInline($orderId, $cardBrand, $aliasId): array
     {
         // Check the saved alias in the session
         $alias = $this->getSessionValue('Alias_' . $aliasId);
@@ -1457,7 +1457,7 @@ class IngenicoCoreLibrary implements
      * @throws Exception
      * @return void
      */
-    public function processPayment($orderId, $aliasId = null, $forceAliasSave = false)
+    public function processPayment($orderId, $aliasId = null, $forceAliasSave = false): void
     {
         // Get Payment Mode
         $payment_mode = $this->configuration->getPaymentpageType();
@@ -1494,7 +1494,7 @@ class IngenicoCoreLibrary implements
      * @throws Exception
      * @return void
      */
-    public function processPaymentRedirect($orderId, $aliasId = null, $forceAliasSave = false)
+    public function processPaymentRedirect($orderId, $aliasId = null, $forceAliasSave = false): void
     {
         if ($this->configuration->getSettingsOneclick()) {
             // Customer chose the saved alias
@@ -1556,7 +1556,7 @@ class IngenicoCoreLibrary implements
      * @throws Exception
      * @return void
      */
-    public function processPaymentRedirectSpecified($orderId, $aliasId, $paymentMethod, $brand)
+    public function processPaymentRedirectSpecified($orderId, $aliasId, $paymentMethod, $brand): void
     {
         // Initiate Redirect Payment
         $data = $this->getSpecifiedRedirectPaymentRequest($orderId, $aliasId, $paymentMethod, $brand);
@@ -1578,7 +1578,7 @@ class IngenicoCoreLibrary implements
      * @return void
      * @throws Exception
      */
-    public function processPaymentInline($orderId, $aliasId, $forceAliasSave = false)
+    public function processPaymentInline($orderId, $aliasId, $forceAliasSave = false): void
     {
         // One Click Payments
         if ($this->configuration->getSettingsOneclick()) {
@@ -1629,7 +1629,7 @@ class IngenicoCoreLibrary implements
      *
      * @param $reservedOrderId
      */
-    public function getCcIFrameUrlBeforePlaceOrder($reservedOrderId)
+    public function getCcIFrameUrlBeforePlaceOrder($reservedOrderId): string
     {
         $alias = new Alias();
         $alias->setIsShouldStoredPermanently(true)
@@ -1654,7 +1654,7 @@ class IngenicoCoreLibrary implements
      * @return void
      * @throws \Exception
      */
-    private function processPaymentAlias($orderId, $aliasId = null)
+    private function processPaymentAlias($orderId, $aliasId = null): void
     {
         // Load Alias
         $alias = $this->getAlias($aliasId);
@@ -1769,7 +1769,7 @@ class IngenicoCoreLibrary implements
      * @param Alias $alias
      * @return array
      */
-    private function getInlinePaymentMethods($orderId, Alias $alias)
+    private function getInlinePaymentMethods($orderId, Alias $alias): array
     {
         // Get selected payment methods
         $selectedPaymentMethods = $this->getSelectedPaymentMethods();
@@ -1832,7 +1832,7 @@ class IngenicoCoreLibrary implements
      *
      * @return Payment
      */
-    public function getPaymentInfo($orderId, $payId = null, $payIdSub = null)
+    public function getPaymentInfo($orderId, $payId = null, $payIdSub = null): Payment
     {
         $directLink = new DirectLink();
         $directLink->setLogger($this->getLogger());
@@ -1857,7 +1857,7 @@ class IngenicoCoreLibrary implements
      *
      * @return void
      */
-    public function webhookListener()
+    public function webhookListener(): void
     {
         // Implements Transaction feedback
         $this->logger->debug('Incoming POST:', $_POST);
@@ -1966,7 +1966,7 @@ class IngenicoCoreLibrary implements
      *
      * @return Order|false
      */
-    private function getOrder($orderId, array $fields = [])
+    private function getOrder($orderId, array $fields = []): false|Order
     {
         if (!$this->extension->isOrderCreated($orderId)) {
             return $this->getOrderBeforePlaceOrder($orderId, $fields);
@@ -2072,7 +2072,7 @@ class IngenicoCoreLibrary implements
      *
      * @return Order|false
      */
-    private function getOrderBeforePlaceOrder($reservedOrderId, array $fields = [])
+    private function getOrderBeforePlaceOrder($reservedOrderId, array $fields = []): false|Order
     {
         $info = $this->extension->requestOrderInfoBeforePlaceOrder($reservedOrderId);
         if (!$info) {
@@ -2173,7 +2173,7 @@ class IngenicoCoreLibrary implements
      *
      * @return string
      */
-    private function getLocale($orderId)
+    private function getLocale($orderId): string
     {
         $locale = $this->extension->getLocale($orderId);
         if (!in_array($locale, array_keys(self::$allowedLanguages))) {
@@ -2190,7 +2190,7 @@ class IngenicoCoreLibrary implements
      *
      * @return mixed
      */
-    private function validatePaymentResponse($request)
+    private function validatePaymentResponse($request): mixed
     {
         return $this->validateHostedCheckoutResponse($request);
     }
@@ -2201,7 +2201,7 @@ class IngenicoCoreLibrary implements
      * @param $isoCode
      * @return string
      */
-    public static function getCountryByCode($isoCode)
+    public static function getCountryByCode($isoCode): string
     {
         $country = (new \League\ISO3166\ISO3166)->alpha2($isoCode);
         return $country['name'];
@@ -2211,7 +2211,7 @@ class IngenicoCoreLibrary implements
      * Get Categories of Payment Methods
      * @return array
      */
-    public function getPaymentCategories()
+    public function getPaymentCategories(): array
     {
         $categories = PaymentMethod::getPaymentCategories();
 
@@ -2229,7 +2229,7 @@ class IngenicoCoreLibrary implements
      *
      * @return array
      */
-    public function getAllCountries()
+    public function getAllCountries(): array
     {
         $countries = PaymentMethod::getAllCountries();
 
@@ -2247,7 +2247,7 @@ class IngenicoCoreLibrary implements
      *
      * @return array
      */
-    public function getPaymentMethods()
+    public function getPaymentMethods(): array
     {
         $paymentMethods = PaymentMethod::getPaymentMethods();
 
@@ -2294,7 +2294,7 @@ class IngenicoCoreLibrary implements
      * @deprecated
      * @return array
      */
-    public static function getCountriesPaymentMethods()
+    public static function getCountriesPaymentMethods(): array
     {
         $paymentMethods = new PaymentMethod();
 
@@ -2308,7 +2308,7 @@ class IngenicoCoreLibrary implements
      *
      * @return PaymentMethod\PaymentMethod|false
      */
-    public function getPaymentMethodByBrand($brand)
+    public function getPaymentMethodByBrand($brand): false|PaymentMethod\PaymentMethod
     {
         $paymentMethods = PaymentMethod::getPaymentMethodByBrand($brand, $this);
 
@@ -2332,7 +2332,7 @@ class IngenicoCoreLibrary implements
      * @param $category
      * @return array
      */
-    public function getPaymentMethodsByCategory($category)
+    public function getPaymentMethodsByCategory($category): array
     {
         $paymentMethods = PaymentMethod::getPaymentMethodsByCategory($category);
 
@@ -2360,7 +2360,7 @@ class IngenicoCoreLibrary implements
      *
      * @return array
      */
-    public function getSelectedPaymentMethods()
+    public function getSelectedPaymentMethods(): array
     {
         $selected = $this->configuration->getSelectedPaymentMethods();
         if (count($selected) === 0) {
@@ -2394,7 +2394,7 @@ class IngenicoCoreLibrary implements
      *
      * @return array
      */
-    public function getUnusedPaymentMethods()
+    public function getUnusedPaymentMethods(): array
     {
         $result = [];
         $methods = self::getPaymentMethods();
@@ -2418,7 +2418,7 @@ class IngenicoCoreLibrary implements
      *
      * @return array
      */
-    public function getAndMergeCountriesPaymentMethods(array $countries)
+    public function getAndMergeCountriesPaymentMethods(array $countries): array
     {
         // Get IDs for selected Payment Methods
         $selectedIDs = $this->configuration->getSelectedPaymentMethods();
@@ -2465,7 +2465,8 @@ class IngenicoCoreLibrary implements
         $shopUrl,
         $ingenicoLogo,
         $locale = 'en_US'
-    ) {
+    ): void
+    {
         $onboarding = new Onboarding($this->extension, $this);
         if (!$saleEmails = $onboarding->getOnboardingEmailsByCountry($countryCode)) {
             throw new Exception(sprintf('%s country is not found', $countryCode));
@@ -2509,7 +2510,7 @@ class IngenicoCoreLibrary implements
      *
      * @return string
      */
-    public static function getStatusByCode($statusCode)
+    public static function getStatusByCode($statusCode): string
     {
         switch ($statusCode) {
             case 1:
@@ -2578,7 +2579,7 @@ class IngenicoCoreLibrary implements
      * @param int $statusCode
      * @return string
      */
-    public function getPaymentStatus($brand, $statusCode)
+    public function getPaymentStatus($brand, $statusCode): string
     {
         $paymentMethod = PaymentMethod::getPaymentMethodByBrand($brand, $this);
         if ($paymentMethod) {
@@ -2611,7 +2612,7 @@ class IngenicoCoreLibrary implements
      * @param Payment $paymentResult
      * @return string
      */
-    public function finaliseOrderPayment($orderId, Payment &$paymentResult)
+    public function finaliseOrderPayment($orderId, Payment &$paymentResult): string
     {
         // Log Payment
         $this->extension->logIngenicoPayment($orderId, $paymentResult);
@@ -2694,7 +2695,7 @@ class IngenicoCoreLibrary implements
      *
      * @return null
      */
-    public function updateOrderStatus($orderId, $paymentResult)
+    public function updateOrderStatus($orderId, $paymentResult): null
     {
         $this->extension->updateOrderStatus(
             $orderId,
@@ -2718,7 +2719,7 @@ class IngenicoCoreLibrary implements
      *
      * @return bool
      */
-    public function canVoid($orderId, $payId, $cancelAmount = null)
+    public function canVoid($orderId, $payId, $cancelAmount = null): bool
     {
         $order = $this->getOrder($orderId);
 
@@ -2744,7 +2745,7 @@ class IngenicoCoreLibrary implements
      *
      * @return bool
      */
-    public function canCapture($orderId, $payId, $captureAmount = null)
+    public function canCapture($orderId, $payId, $captureAmount = null): bool
     {
         $order = $this->getOrder($orderId);
 
@@ -2770,7 +2771,7 @@ class IngenicoCoreLibrary implements
      *
      * @return bool
      */
-    public function canRefund($orderId, $payId, $refundAmount = null)
+    public function canRefund($orderId, $payId, $refundAmount = null): bool
     {
         $order = $this->getOrder($orderId);
 
@@ -2808,7 +2809,7 @@ class IngenicoCoreLibrary implements
      * @return Payment
      * @throws Exception
      */
-    public function cancel($orderId, $payId = null, $amount = null)
+    public function cancel($orderId, $payId = null, $amount = null): Payment
     {
         $order = $this->getOrder($orderId);
 
@@ -2860,7 +2861,7 @@ class IngenicoCoreLibrary implements
      * @return Payment
      * @throws Exception
      */
-    public function capture($orderId, $payId = null, $amount = null)
+    public function capture($orderId, $payId = null, $amount = null): Payment
     {
         $order = $this->getOrder($orderId);
 
@@ -2911,7 +2912,7 @@ class IngenicoCoreLibrary implements
      * @return Payment
      * @throws Exception
      */
-    public function refund($orderId, $payId = null, $amount = null)
+    public function refund($orderId, $payId = null, $amount = null): Payment
     {
         $order = $this->getOrder($orderId);
 
@@ -2960,7 +2961,7 @@ class IngenicoCoreLibrary implements
      * @return void
      * @throws Exception
      */
-    private function processAlias($orderId, array $data)
+    private function processAlias($orderId, array $data): void
     {
         if (empty($data['ALIAS'])) {
             return;
@@ -3000,7 +3001,8 @@ class IngenicoCoreLibrary implements
         $fromName,
         $subject,
         array $attachedFiles = []
-    ) {
+    ): bool
+    {
         if (!$template instanceof MailTemplate) {
             throw new Exception('Template variable must be instance of MailTemplate');
         }
@@ -3039,7 +3041,8 @@ class IngenicoCoreLibrary implements
         $subject,
         $fields = array(),
         $locale = null
-    ) {
+    ): bool
+    {
         return $this->sendMail(
             (new MailTemplate(
                 $locale ?: $this->extension->getLocale(),
@@ -3078,7 +3081,8 @@ class IngenicoCoreLibrary implements
         $subject,
         $fields = array(),
         $locale = null
-    ) {
+    ): bool
+    {
         return $this->sendMail(
             (new MailTemplate(
                 $locale ?: $this->extension->getLocale(),
@@ -3117,7 +3121,8 @@ class IngenicoCoreLibrary implements
         $subject,
         $fields = array(),
         $locale = null
-    ) {
+    ): bool
+    {
         $fields['platform_name'] = $this->getWhiteLabelsData()->getPlatform();
 
         return $this->sendMail(
@@ -3158,7 +3163,8 @@ class IngenicoCoreLibrary implements
         $subject,
         $fields = array(),
         $locale = null
-    ) {
+    ): bool
+    {
         return $this->sendMail(
             (new MailTemplate(
                 $locale ?: $this->extension->getLocale(),
@@ -3197,7 +3203,8 @@ class IngenicoCoreLibrary implements
         $subject,
         $fields = array(),
         $locale = null
-    ) {
+    ): bool
+    {
         $fields['platform_name'] = $this->getWhiteLabelsData()->getPlatform();
 
         return $this->sendMail(
@@ -3238,7 +3245,8 @@ class IngenicoCoreLibrary implements
         $subject,
         $fields = array(),
         $locale = null
-    ) {
+    ): bool
+    {
         return $this->sendMail(
             (new MailTemplate(
                 $locale ?: $this->extension->getLocale(),
@@ -3277,7 +3285,8 @@ class IngenicoCoreLibrary implements
         $subject,
         $fields = array(),
         $locale = null
-    ) {
+    ): bool
+    {
         $fields['platform_name'] = $this->getWhiteLabelsData()->getPlatform();
 
         return $this->sendMail(
@@ -3318,7 +3327,8 @@ class IngenicoCoreLibrary implements
         $subject,
         $fields = array(),
         $locale = null
-    ) {
+    ): bool
+    {
         $fields['platform_name'] = $this->getWhiteLabelsData()->getPlatform();
 
         return $this->sendMail(
@@ -3361,7 +3371,8 @@ class IngenicoCoreLibrary implements
         $fields = array(),
         $locale = null,
         array $attachedFiles = []
-    ) {
+    ): bool
+    {
         return $this->sendMail(
             (new MailTemplate(
                 $locale ?: $this->extension->getLocale(),
@@ -3384,7 +3395,7 @@ class IngenicoCoreLibrary implements
      *
      * @return WhiteLabels
      */
-    public function getWhiteLabelsData()
+    public function getWhiteLabelsData(): WhiteLabels
     {
         return (new WhiteLabels($this->extension, $this));
     }
@@ -3394,7 +3405,7 @@ class IngenicoCoreLibrary implements
      * @param mixed $aliasId
      * @return Alias
      */
-    public function getAlias($aliasId)
+    public function getAlias($aliasId): Alias
     {
         $data = $this->extension->getAlias($aliasId);
         if (!is_array($data)) {
@@ -3409,7 +3420,7 @@ class IngenicoCoreLibrary implements
      * @param $customerId
      * @return array
      */
-    public function getCustomerAliases($customerId)
+    public function getCustomerAliases($customerId): array
     {
         $aliases = [];
         $data = $this->extension->getCustomerAliases($customerId);
@@ -3425,7 +3436,7 @@ class IngenicoCoreLibrary implements
      * @param Alias $alias
      * @return bool
      */
-    public function saveAlias(Alias $alias)
+    public function saveAlias(Alias $alias): bool
     {
         // Don't save aliases for some brands
         if (in_array(
@@ -3466,7 +3477,7 @@ class IngenicoCoreLibrary implements
      *
      * @return void
      */
-    public function cronHandler()
+    public function cronHandler(): void
     {
         // Process Reminder notifications
         if ($this->configuration->getSettingsReminderemail()) {

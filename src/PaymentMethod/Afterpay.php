@@ -300,7 +300,7 @@ class Afterpay extends PaymentMethod
      * @param array $fields
      * @return $this
      */
-    public function setAdditionalFields($checkout_type, array $fields = [])
+    public function setAdditionalFields($checkout_type, array $fields = []): static
     {
         $this->additional_fields[$checkout_type] = $fields;
 

@@ -20,7 +20,7 @@ trait DirectLinkPayment
      *
      * @return Payment
      */
-    public function executePayment($orderId, Alias $alias)
+    public function executePayment($orderId, Alias $alias): Payment
     {
         $order = $this->getOrder($orderId);
 
@@ -42,7 +42,7 @@ trait DirectLinkPayment
      * @param Data|array $additional
      * @return DirectLinkPaymentRequest
      */
-    public function getDirectLinkPaymentRequest(Order $order, Alias $alias, $additional = [])
+    public function getDirectLinkPaymentRequest(Order $order, Alias $alias, $additional = []): DirectLinkPaymentRequest
     {
         if (is_array($additional)) {
             $additional = (new Data())->setData($additional);

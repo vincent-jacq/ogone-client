@@ -89,7 +89,7 @@ class IngenicoCoreLibraryFacadeTest extends TestCase
     }
 
 
-    public function getConfiguration()
+    public function getConfiguration(): \IngenicoClient\Configuration
     {
         $configuration = new \IngenicoClient\Configuration(
             PSPID,
@@ -102,7 +102,7 @@ class IngenicoCoreLibraryFacadeTest extends TestCase
         return $configuration;
     }
 
-    public function getTestOrder()
+    public function getTestOrder(): \IngenicoClient\Order
     {
         $order = new \IngenicoClient\Order();
         $order->setOrderid(123);
@@ -112,7 +112,7 @@ class IngenicoCoreLibraryFacadeTest extends TestCase
         return $order;
     }
 
-    public function getTestAlias()
+    public function getTestAlias(): \Ogone\DirectLink\Alias
     {
         $alias = new \Ogone\DirectLink\Alias('test');
 
@@ -123,7 +123,7 @@ class IngenicoCoreLibraryFacadeTest extends TestCase
      * Get CoreLibrary Instance
      * @return \IngenicoClient\IngenicoCoreLibrary
      */
-    public function getCoreLibrary()
+    public function getCoreLibrary(): \IngenicoClient\IngenicoCoreLibrary
     {
         if (!$this->coreLibraryFacade) {
             $this->coreLibraryFacade = new \IngenicoClient\IngenicoCoreLibrary($this);
@@ -137,7 +137,7 @@ class IngenicoCoreLibraryFacadeTest extends TestCase
      *
      * @return array
      */
-    public function requestSettings()
+    public function requestSettings(): array
     {
         return [
             'mode' => 'test',
@@ -158,7 +158,7 @@ class IngenicoCoreLibraryFacadeTest extends TestCase
      *
      * @return array
      */
-    public function requestReturnUrls()
+    public function requestReturnUrls(): array
     {
         return [
             'accept' => 'http://example.com',
@@ -184,7 +184,7 @@ class IngenicoCoreLibraryFacadeTest extends TestCase
      * @param $orderId
      * @return mixed
      */
-    public function requestOrderAmount($orderId)
+    public function requestOrderAmount($orderId): mixed
     {
         return 1000;
     }
@@ -195,7 +195,7 @@ class IngenicoCoreLibraryFacadeTest extends TestCase
      * @param $orderId
      * @return mixed
      */
-    public function requestOrderCurrency($orderId)
+    public function requestOrderCurrency($orderId): mixed
     {
         return 'EUR';
     }

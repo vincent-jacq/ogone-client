@@ -151,7 +151,7 @@ class OrderField extends Data
      * @return bool
      * @throws Exception
      */
-    public function validate($value = null)
+    public function validate($value = null): bool
     {
         if (!$value) {
             $value = $this->getValue();
