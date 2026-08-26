@@ -154,9 +154,9 @@ interface IngenicoCoreLibraryInterface
      * @param $cardBrand
      * @param $aliasId
      *
-     * @return void
+     * @return array
      */
-    public function finishReturnInline($orderId, $cardBrand, $aliasId): void;
+    public function finishReturnInline($orderId, $cardBrand, $aliasId): array;
 
     /**
      * Handle incoming requests by Webhook.
