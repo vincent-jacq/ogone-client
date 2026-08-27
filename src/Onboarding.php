@@ -51,7 +51,7 @@ class Onboarding
      *
      * @return array
      */
-    public function getOnboardingEmailsByCountry($countryCode): array
+    public function getOnboardingEmailsByCountry($countryCode)
     {
         return isset($this->emails[$countryCode]) ? $this->emails[$countryCode] : array();
     }

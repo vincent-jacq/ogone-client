@@ -16,7 +16,7 @@ interface DirectLinkPaymentInterface
      *
      * @return Payment
      */
-    public function executePayment($orderId, Alias $alias): Payment;
+    public function executePayment($orderId, Alias $alias);
 
     /**
      * @param Order $order
@@ -24,5 +24,5 @@ interface DirectLinkPaymentInterface
      * @param Data|array $additional
      * @return DirectLinkPaymentRequest
      */
-    public function getDirectLinkPaymentRequest(Order $order, Alias $alias, $additional = []): DirectLinkPaymentRequest;
+    public function getDirectLinkPaymentRequest(Order $order, Alias $alias, $additional = []);
 }

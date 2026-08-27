@@ -210,7 +210,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @param array $data
      */
-    public function load(array $data): void
+    public function load(array $data)
     {
         $this->setData($data);
 
@@ -226,7 +226,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return string
      */
-    public function getShoppingCartExtensionId(): string
+    public function getShoppingCartExtensionId()
     {
         return $this->extension->requestShoppingCartExtensionId();
     }
@@ -236,7 +236,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return array
      */
-    public static function getDefault(): array
+    public static function getDefault()
     {
         return self::$default_settings;
     }
@@ -245,7 +245,7 @@ class Configuration extends Data implements ConfigurationInterface
      * Get Mode
      * @return mixed
      */
-    public function getMode(): mixed
+    public function getMode()
     {
         return $this->getConnectionMode();
     }
@@ -255,7 +255,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return bool
      */
-    public function isTestMode(): bool
+    public function isTestMode()
     {
         return $this->getConnectionMode() === self::MODE_TEST;
     }
@@ -265,7 +265,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param $value
      * @return $this
      */
-    public function setMode($value): static
+    public function setMode($value)
     {
         return $this->setConnectionMode($value);
     }
@@ -274,7 +274,7 @@ class Configuration extends Data implements ConfigurationInterface
      * Get PSPId
      * @return string
      */
-    public function getPspid(): string
+    public function getPspid()
     {
         if ($this->getConnectionMode() === self::MODE_PRODUCTION) {
             return $this->getConnectionLivePspid();
@@ -289,7 +289,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param $pspid
      * @return $this
      */
-    public function setPspid($pspid): static
+    public function setPspid($pspid)
     {
         if (strlen($pspid) > 30) {
             throw new InvalidArgumentException('PSPId is too long');
@@ -306,7 +306,7 @@ class Configuration extends Data implements ConfigurationInterface
      * Get User Id
      * @return mixed
      */
-    public function getUserId(): mixed
+    public function getUserId()
     {
         if ($this->getConnectionMode() === self::MODE_PRODUCTION) {
             return $this->getConnectionLiveDlUser();
@@ -321,7 +321,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param string $userId
      * @return $this
      */
-    public function setUserId($userId): static
+    public function setUserId($userId)
     {
         if (strlen($userId) < 2) {
             throw new InvalidArgumentException('User ID is too short');
@@ -338,7 +338,7 @@ class Configuration extends Data implements ConfigurationInterface
      * Set API Password
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         if ($this->getConnectionMode() === self::MODE_PRODUCTION) {
             return $this->getConnectionLiveDlPassword();
@@ -353,7 +353,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param string $password
      * @return $this
      */
-    public function setPassword($password): static
+    public function setPassword($password)
     {
         if (strlen($password) < 8) {
             throw new InvalidArgumentException('Password is too short');
@@ -370,7 +370,7 @@ class Configuration extends Data implements ConfigurationInterface
      * Get passphrase
      * @return string
      */
-    public function getPassphrase(): string
+    public function getPassphrase()
     {
         if ($this->getConnectionMode() === self::MODE_PRODUCTION) {
             return $this->getConnectionLiveSignature();
@@ -385,7 +385,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param string $passphrase
      * @return $this
      */
-    public function setPassphrase($passphrase): static
+    public function setPassphrase($passphrase)
     {
         if (!is_string($passphrase)) {
             throw new \InvalidArgumentException('String expected');
@@ -402,7 +402,7 @@ class Configuration extends Data implements ConfigurationInterface
      * Get SHA algorithm
      * @return string
      */
-    public function getAlgorithm(): string
+    public function getAlgorithm()
     {
         if ($this->getConnectionMode() === self::MODE_PRODUCTION) {
             return $this->getConnectionLiveAlgorithm();
@@ -417,7 +417,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param string $algorithm
      * @return $this
      */
-    public function setAlgorithm($algorithm): static
+    public function setAlgorithm($algorithm)
     {
         if (!in_array($algorithm, [self::HASH_SHA1, self::HASH_SHA256, self::HASH_SHA512])) {
             throw new \InvalidArgumentException(
@@ -436,7 +436,7 @@ class Configuration extends Data implements ConfigurationInterface
      * Get if Stored Card enabled
      * @return bool
      */
-    public function getSettingsOneclick(): bool
+    public function getSettingsOneclick()
     {
         return (bool) $this->getData(self::CONF_SETTINGS_ONECLICK);
     }
@@ -449,7 +449,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param string $fieldValue
      * @return bool|string
      */
-    public function validate($fieldKey, $fieldValue): bool|string
+    public function validate($fieldKey, $fieldValue)
     {
         if (strpos($fieldKey, 'instalments_') !== false) {
             if ($fieldValue < 0) {
@@ -506,7 +506,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @return $this
      * @throws Exception
      */
-    public function save(): static
+    public function save()
     {
         $errors = [];
         foreach ($this->getData() as $fieldKey => $fieldValue) {
@@ -536,7 +536,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return Configuration
      */
-    public function copyToLive(): Configuration
+    public function copyToLive()
     {
         $testConf = new Configuration($this->extension, $this->coreLibrary);
         $testConf->setData($this->extension->requestSettings(self::MODE_TEST));
@@ -567,7 +567,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return array
      */
-    public function export(): array
+    public function export()
     {
         $conf = [
             'extension_id' => $this->extension->requestShoppingCartExtensionId(),
@@ -601,7 +601,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param array $data
      * @throws Exception
      */
-    public function import(array $data): void
+    public function import(array $data)
     {
         if (isset($data['test'])) {
             $conf = new Configuration($this->extension, $this->coreLibrary);
@@ -631,7 +631,7 @@ class Configuration extends Data implements ConfigurationInterface
      * @param $direction
      * @return AllParametersShaComposer
      */
-    public function getShaComposer($direction = null): AllParametersShaComposer
+    public function getShaComposer($direction = null)
     {
         $shaComposer = new AllParametersShaComposer(
             new Passphrase($this->getPassphrase()),
@@ -655,7 +655,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return string
      */
-    public function getApiEcommerce(): string
+    public function getApiEcommerce()
     {
         if ($this->isTestMode()) {
             return $this->coreLibrary->api_ecommerce_test;
@@ -669,7 +669,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return string
      */
-    public function getApiFlexcheckout(): string
+    public function getApiFlexcheckout()
     {
         if ($this->isTestMode()) {
             return $this->coreLibrary->api_flexcheckout_test;
@@ -683,7 +683,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return string
      */
-    public function getApiQuerydirect(): string
+    public function getApiQuerydirect()
     {
         if ($this->isTestMode()) {
             return $this->coreLibrary->api_querydirect_test;
@@ -697,7 +697,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return string
      */
-    public function getApiOrderdirect(): string
+    public function getApiOrderdirect()
     {
         if ($this->isTestMode()) {
             return $this->coreLibrary->api_orderdirect_test;
@@ -711,7 +711,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return string
      */
-    public function getApiMaintenancedirect(): string
+    public function getApiMaintenancedirect()
     {
         if ($this->isTestMode()) {
             return $this->coreLibrary->api_maintenancedirect_test;
@@ -725,7 +725,7 @@ class Configuration extends Data implements ConfigurationInterface
      *
      * @return string
      */
-    public function getApiAlias(): string
+    public function getApiAlias()
     {
         if ($this->isTestMode()) {
             return $this->coreLibrary->api_alias_test;

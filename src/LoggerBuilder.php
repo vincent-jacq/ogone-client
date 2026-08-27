@@ -30,7 +30,7 @@ class LoggerBuilder
      *
      * @return LoggerInterface
      */
-    public function getLogger(): LoggerInterface
+    public function getLogger()
     {
         return $this->logger;
     }
@@ -46,7 +46,7 @@ class LoggerBuilder
      *
      * @throws \Exception
      */
-    public function createLogger($channel, $path = '/tmp/ingenico_sdk.log', $level = Logger::DEBUG): static
+    public function createLogger($channel, $path = '/tmp/ingenico_sdk.log', $level = Logger::DEBUG)
     {
         $this->logger = new Logger($channel);
         $this->logger->pushHandler(new StreamHandler($path, $level));
@@ -65,7 +65,7 @@ class LoggerBuilder
      *
      * @return $this
      */
-    public function createGelfLogger($channel, $host, $port = 12201, $level = Logger::DEBUG): static
+    public function createGelfLogger($channel, $host, $port = 12201, $level = Logger::DEBUG)
     {
         $transport = new TcpTransport($host, $port);
         $publisher = new Publisher($transport);

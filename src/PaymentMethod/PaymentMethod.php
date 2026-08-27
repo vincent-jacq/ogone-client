@@ -190,7 +190,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get ID
      * @return string
      */
-    public function getId(): string
+    public function getId()
     {
         return $this->id;
     }
@@ -199,7 +199,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get Name
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -208,7 +208,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get Category
      * @return string
      */
-    public function getCategory(): string
+    public function getCategory()
     {
         return $this->category;
     }
@@ -218,7 +218,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $categoryName
      * @return $this
      */
-    public function setCategoryName($categoryName): static
+    public function setCategoryName($categoryName)
     {
         $this->category_name = $categoryName;
 
@@ -238,7 +238,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get PM
      * @return string
      */
-    public function getPM(): string
+    public function getPM()
     {
         return $this->pm;
     }
@@ -259,7 +259,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get Brand
      * @return string
      */
-    public function getBrand(): string
+    public function getBrand()
     {
         return $this->brand;
     }
@@ -294,7 +294,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $country
      * @return string
      */
-    public function getPMByCountry($country): string
+    public function getPMByCountry($country)
     {
         if (array_key_exists($country, $this->pm_per_country)) {
             return $this->pm_per_country[$country];
@@ -321,7 +321,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $country
      * @return string|null
      */
-    public function getBrandByCountry($country): ?string
+    public function getBrandByCountry($country)
     {
         if (array_key_exists($country, $this->brand_per_country)) {
             return $this->brand_per_country[$country];
@@ -336,7 +336,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param array $fields
      * @return $this
      */
-    public function setAdditionalFields($checkout_type, array $fields = []): static
+    public function setAdditionalFields($checkout_type, array $fields = [])
     {
         $this->additional_fields = $fields;
 
@@ -348,7 +348,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param string $checkout_type
      * @return array
      */
-    public function getAdditionalFields($checkout_type): array
+    public function getAdditionalFields($checkout_type)
     {
         return $this->additional_fields;
     }
@@ -367,7 +367,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Set Missing Fields
      * @param array $fields
      */
-    public function setMissingFields(array $fields): void
+    public function setMissingFields(array $fields)
     {
         $this->missing_fields = $fields;
     }
@@ -376,7 +376,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get Missing Fields
      * @return array
      */
-    public function getMissingFields(): array
+    public function getMissingFields()
     {
         return $this->missing_fields;
     }
@@ -385,7 +385,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get Countries
      * @return array
      */
-    public function getCountries(): array
+    public function getCountries()
     {
         return $this->countries;
     }
@@ -403,7 +403,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get Credit Debit Flag
      * @return string
      */
-    public function getCreditDebit(): string
+    public function getCreditDebit()
     {
         return $this->credit_debit;
     }
@@ -430,7 +430,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Returns codes that indicate capturing.
      * @return array
      */
-    public function getDirectSalesSuccessCode(): array
+    public function getDirectSalesSuccessCode()
     {
         return $this->direct_sales_success_code;
     }
@@ -439,7 +439,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Returns codes that indicate authorization.
      * @return array
      */
-    public function getAuthModeSuccessCode(): array
+    public function getAuthModeSuccessCode()
     {
         return $this->auth_mode_success_code;
     }
@@ -457,7 +457,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * Get Logo
      * @return string
      */
-    public function getEmbeddedLogo(): string
+    public function getEmbeddedLogo()
     {
         if (filter_var($this->logo, FILTER_VALIDATE_URL) !== false) {
             return $this->logo;
@@ -488,7 +488,7 @@ class PaymentMethod implements \ArrayAccess, PaymentMethodInterface
      * @param mixed $args
      * @return mixed
      */
-    public function getDataUsingMethod($key, $args = null): mixed
+    public function getDataUsingMethod($key, $args = null)
     {
         $method = 'get' . $this->camelize($key);
         return $this->$method($args);

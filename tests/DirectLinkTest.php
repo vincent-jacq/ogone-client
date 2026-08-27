@@ -53,7 +53,7 @@ class DirectLinkTest extends TestCase
         $this->assertInstanceOf('Ogone\\DirectLink\\DirectLinkMaintenanceResponse', $directLinkResponse);
     }
 
-    public function getConfiguration(): \IngenicoClient\Configuration
+    public function getConfiguration()
     {
         $configuration = new \IngenicoClient\Configuration(
             PSPID,

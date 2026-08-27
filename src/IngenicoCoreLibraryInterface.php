@@ -12,14 +12,14 @@ interface IngenicoCoreLibraryInterface
      *
      * @return array
      */
-    public function getDefaultSettings(): array;
+    public function getDefaultSettings();
 
     /**
      * Get Configuration instance.
      *
      * @return Configuration
      */
-    public function getConfiguration(): Configuration;
+    public function getConfiguration();
 
     /**
      * Set Generic Merchant Country.
@@ -28,13 +28,13 @@ interface IngenicoCoreLibraryInterface
      * @return Configuration
      * @throws Exception
      */
-    public function setGenericCountry($country): Configuration;
+    public function setGenericCountry($country);
 
     /**
      * Get Generic Merchant Country.
      * @return string|null
      */
-    public function getGenericCountry(): ?string;
+    public function getGenericCountry();
 
     /**
      * Translate string.
@@ -45,7 +45,7 @@ interface IngenicoCoreLibraryInterface
      * @param string|null $locale
      * @return string
      */
-    public function __($id, array $parameters = [], $domain = null, $locale = null): string;
+    public function __($id, array $parameters = [], $domain = null, $locale = null);
 
     /**
      * Get All Translations.
@@ -54,7 +54,7 @@ interface IngenicoCoreLibraryInterface
      * @param string|null $domain
      * @return array
      */
-    public function getAllTranslations($locale, $domain = null): array;
+    public function getAllTranslations($locale, $domain = null);
 
     /**
      * Get Inline payment method URL
@@ -63,7 +63,7 @@ interface IngenicoCoreLibraryInterface
      * @param Alias $alias
      * @return string
      */
-    public function getInlineIFrameUrl($orderId, Alias $alias): string;
+    public function getInlineIFrameUrl($orderId, Alias $alias);
 
     /**
      * Get payment status.
@@ -74,7 +74,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return Payment
      */
-    public function getPaymentInfo($orderId, $payId = null, $payIdSub = null): Payment;
+    public function getPaymentInfo($orderId, $payId = null, $payIdSub = null);
 
     /**
      * Create Direct Link payment request.
@@ -86,7 +86,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return Payment
      */
-    public function executePayment($orderId, Alias $alias): Payment;
+    public function executePayment($orderId, Alias $alias);
 
     /**
      * Process Return Urls.
@@ -95,7 +95,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return void
      */
-    public function processReturnUrls(): void;
+    public function processReturnUrls();
 
     /**
      * Process Payment Confirmation
@@ -109,7 +109,7 @@ interface IngenicoCoreLibraryInterface
      * @throws Exception
      * @return void
      */
-    public function processPayment($orderId, $aliasId = null, $forceAliasSave = false): void;
+    public function processPayment($orderId, $aliasId = null, $forceAliasSave = false);
 
     /**
      * Process Payment Confirmation: Redirect
@@ -120,7 +120,7 @@ interface IngenicoCoreLibraryInterface
      * @throws Exception
      * @return void
      */
-    public function processPaymentRedirect($orderId, $aliasId = null, $forceAliasSave = false): void;
+    public function processPaymentRedirect($orderId, $aliasId = null, $forceAliasSave = false);
 
     /**
      * Process Payment Confirmation: Redirect with specified PM/Brand.
@@ -133,7 +133,7 @@ interface IngenicoCoreLibraryInterface
      * @throws Exception
      * @return void
      */
-    public function processPaymentRedirectSpecified($orderId, $aliasId, $paymentMethod, $brand): void;
+    public function processPaymentRedirectSpecified($orderId, $aliasId, $paymentMethod, $brand);
 
     /**
      * Process Payment Confirmation: Inline
@@ -144,7 +144,7 @@ interface IngenicoCoreLibraryInterface
      * @return void
      * @throws Exception
      */
-    public function processPaymentInline($orderId, $aliasId, $forceAliasSave = false): void;
+    public function processPaymentInline($orderId, $aliasId, $forceAliasSave = false);
 
     /**
      * Executed on the moment when customer's alias saved, and we're should charge payment.
@@ -156,7 +156,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return array
      */
-    public function finishReturnInline($orderId, $cardBrand, $aliasId): array;
+    public function finishReturnInline($orderId, $cardBrand, $aliasId);
 
     /**
      * Handle incoming requests by Webhook.
@@ -165,7 +165,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return void
      */
-    public function webhookListener(): void;
+    public function webhookListener();
 
     /**
      * Get Hosted Checkout parameters to generate the payment form.
@@ -175,7 +175,7 @@ interface IngenicoCoreLibraryInterface
      * @param Alias $alias
      * @return Data
      */
-    public function initiateRedirectPayment($orderId, Alias $alias): Data;
+    public function initiateRedirectPayment($orderId, Alias $alias);
 
     /**
      * Get Hosted Checkout Payment Request
@@ -185,7 +185,7 @@ interface IngenicoCoreLibraryInterface
      * @return EcommercePaymentRequest
      * @throws \Exception
      */
-    public function getHostedCheckoutPaymentRequest(Order $order, Alias $alias): EcommercePaymentRequest;
+    public function getHostedCheckoutPaymentRequest(Order $order, Alias $alias);
 
     /**
      * Get "Redirect" Payment Request with specified PaymentMethod and Brand.
@@ -206,7 +206,7 @@ interface IngenicoCoreLibraryInterface
         $paymentMethod,
         $brand,
         $paymentId = null
-    ): Data;
+    );
 
     /**
      * Get Country By ISO Code
@@ -214,32 +214,32 @@ interface IngenicoCoreLibraryInterface
      * @param $isoCode
      * @return string
      */
-    public static function getCountryByCode($isoCode): string;
+    public static function getCountryByCode($isoCode);
 
     /**
      * Get Categories of Payment Methods
      * @return array
      */
-    public function getPaymentCategories(): array;
+    public function getPaymentCategories();
 
     /**
      * Get Countries of Payment Methods
      * @return array
      */
-    public function getAllCountries(): array;
+    public function getAllCountries();
 
     /**
      * Get all payment methods.
      *
      * @return array
      */
-    public function getPaymentMethods(): array;
+    public function getPaymentMethods();
 
     /**
      * @deprecated
      * @return array
      */
-    public static function getCountriesPaymentMethods(): array;
+    public static function getCountriesPaymentMethods();
 
     /**
      * Get Payment Method by Brand.
@@ -248,7 +248,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return PaymentMethod\PaymentMethod|false
      */
-    public function getPaymentMethodByBrand($brand): false|PaymentMethod\PaymentMethod;
+    public function getPaymentMethodByBrand($brand);
 
     /**
      * Get payment methods by Category
@@ -256,21 +256,21 @@ interface IngenicoCoreLibraryInterface
      * @param $category
      * @return array
      */
-    public function getPaymentMethodsByCategory($category): array;
+    public function getPaymentMethodsByCategory($category);
 
     /**
      * Get Selected Payment Methods
      *
      * @return array
      */
-    public function getSelectedPaymentMethods(): array;
+    public function getSelectedPaymentMethods();
 
     /**
      * Get Unused Payment Methods.
      *
      * @return array
      */
-    public function getUnusedPaymentMethods(): array;
+    public function getUnusedPaymentMethods();
 
     /**
      * Get Payment Methods by Country ISO code
@@ -280,7 +280,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return array
      */
-    public function getAndMergeCountriesPaymentMethods(array $countries): array;
+    public function getAndMergeCountriesPaymentMethods(array $countries);
 
     /**
      * process Onboarding data and dispatch email to the corresponding Ingenico sales representative.
@@ -317,7 +317,7 @@ interface IngenicoCoreLibraryInterface
      * @return Payment
      * @throws Exception
      */
-    public function refund($orderId, $payId = null, $amount = null): Payment;
+    public function refund($orderId, $payId = null, $amount = null);
 
     /**
      * Capture.
@@ -329,7 +329,7 @@ interface IngenicoCoreLibraryInterface
      * @return Payment
      * @throws Exception
      */
-    public function capture($orderId, $payId = null, $amount = null): Payment;
+    public function capture($orderId, $payId = null, $amount = null);
 
     /**
      * Cancel.
@@ -341,7 +341,7 @@ interface IngenicoCoreLibraryInterface
      * @return Payment
      * @throws Exception
      */
-    public function cancel($orderId, $payId = null, $amount = null): Payment;
+    public function cancel($orderId, $payId = null, $amount = null);
 
     /**
      * Get Status by Status Code.
@@ -350,7 +350,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return string
      */
-    public static function getStatusByCode($statusCode): string;
+    public static function getStatusByCode($statusCode);
 
     /**
      * Get Payment Status.
@@ -359,7 +359,7 @@ interface IngenicoCoreLibraryInterface
      * @param int $statusCode
      * @return string
      */
-    public function getPaymentStatus($brand, $statusCode): string;
+    public function getPaymentStatus($brand, $statusCode);
 
     /**
      * Finalise Payment and Update order status.
@@ -369,7 +369,7 @@ interface IngenicoCoreLibraryInterface
      * @param Payment $paymentResult
      * @return string
      */
-    public function finaliseOrderPayment($orderId, Payment &$paymentResult): string;
+    public function finaliseOrderPayment($orderId, Payment &$paymentResult);
 
     /**
      * Check void availability
@@ -380,7 +380,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return bool
      */
-    public function canVoid($orderId, $payId, $cancelAmount): bool;
+    public function canVoid($orderId, $payId, $cancelAmount);
 
     /**
      * Check capture availability.
@@ -391,7 +391,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return bool
      */
-    public function canCapture($orderId, $payId, $captureAmount): bool;
+    public function canCapture($orderId, $payId, $captureAmount);
 
     /**
      * Check refund availability.
@@ -402,7 +402,7 @@ interface IngenicoCoreLibraryInterface
      *
      * @return bool
      */
-    public function canRefund($orderId, $payId, $refundAmount): bool;
+    public function canRefund($orderId, $payId, $refundAmount);
 
     /**
      * Get MailTemplate instance of Reminder.
@@ -427,7 +427,7 @@ interface IngenicoCoreLibraryInterface
         $subject,
         $fields = array(),
         $locale = ''
-    ): bool;
+    );
 
     /**
      * Get MailTemplate instance of "Refund Failed".
@@ -452,7 +452,7 @@ interface IngenicoCoreLibraryInterface
         $subject,
         $fields = array(),
         $locale = ''
-    ): bool;
+    );
 
     /**
      * Get MailTemplate instance of "Refund Failed".
@@ -477,7 +477,7 @@ interface IngenicoCoreLibraryInterface
         $subject,
         $fields = array(),
         $locale = ''
-    ): bool;
+    );
 
     /**
      * Get MailTemplate instance of "Order Paid".
@@ -502,7 +502,7 @@ interface IngenicoCoreLibraryInterface
         $subject,
         $fields = array(),
         $locale = ''
-    ): bool;
+    );
 
     /**
      * Get MailTemplate instance of "Admin Order Paid".
@@ -527,7 +527,7 @@ interface IngenicoCoreLibraryInterface
         $subject,
         $fields = array(),
         $locale = ''
-    ): bool;
+    );
 
     /**
      * Get MailTemplate instance of "Authorization".
@@ -552,7 +552,7 @@ interface IngenicoCoreLibraryInterface
         $subject,
         $fields = array(),
         $locale = ''
-    ): bool;
+    );
 
     /**
      * Get MailTemplate instance of "Admin Authorization".
@@ -577,7 +577,7 @@ interface IngenicoCoreLibraryInterface
         $subject,
         $fields = array(),
         $locale = ''
-    ): bool;
+    );
 
     /**
      * Get MailTemplate instance of "Onboarding request".
@@ -602,7 +602,7 @@ interface IngenicoCoreLibraryInterface
         $subject,
         $fields = array(),
         $locale = ''
-    ): bool;
+    );
 
     /**
      * Get MailTemplate instance of "Ingenico Support".
@@ -629,28 +629,28 @@ interface IngenicoCoreLibraryInterface
         $fields = array(),
         $locale = null,
         array $attachedFiles = []
-    ): bool;
+    );
 
     /**
      * Get Alias
      * @param $aliasId
      * @return Alias
      */
-    public function getAlias($aliasId): Alias;
+    public function getAlias($aliasId);
 
     /**
      * Get Aliases by CustomerId
      * @param $customerId
      * @return array
      */
-    public function getCustomerAliases($customerId): array;
+    public function getCustomerAliases($customerId);
 
     /**
      * Save Alias
      * @param Alias $alias
      * @return bool
      */
-    public function saveAlias(Alias $alias): bool;
+    public function saveAlias(Alias $alias);
 
     /**
      * Cron Handler.
@@ -661,21 +661,21 @@ interface IngenicoCoreLibraryInterface
      *
      * @return void
      */
-    public function cronHandler(): void;
+    public function cronHandler();
 
     /**
      * Set Logger.
      *
-     * @param LoggerInterface|null $logger
+     * @param LoggerInterface $logger
      *
      * @return $this
      */
-    public function setLogger(?LoggerInterface $logger = null): static;
+    public function setLogger(?LoggerInterface $logger = null);
 
     /**
      * Gets Logger.
      *
      * @return LoggerInterface|null
      */
-    public function getLogger(): ?LoggerInterface;
+    public function getLogger();
 }

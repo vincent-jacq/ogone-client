@@ -107,7 +107,7 @@ class OrderItem extends Data
      *
      * @return array
      */
-    public function exchange(): array
+    public function exchange()
     {
         $result = [];
         foreach (self::$map as $key => $value) {

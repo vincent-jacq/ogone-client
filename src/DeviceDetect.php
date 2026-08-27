@@ -39,7 +39,7 @@ class DeviceDetect
      *
      * @return string
      */
-    public function getDeviceType(): string
+    public function getDeviceType()
     {
         if ($this->mobileDetect->isMobile()) {
             return self::DEVICE_TYPE_MOBILE;

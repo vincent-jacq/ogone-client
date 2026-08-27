@@ -84,7 +84,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      *
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         return $this->payment_methods;
     }
@@ -96,7 +96,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      * @param mixed $value
      * @return array
      */
-    public static function find($field, $value): array
+    public static function find($field, $value)
     {
         $result = [];
         $paymentMethods = new PaymentMethod();
@@ -117,7 +117,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      *
      * @return array
      */
-    public static function getAllCountries(): array
+    public static function getAllCountries()
     {
         $countries = [];
         $paymentMethods = new PaymentMethod();
@@ -141,7 +141,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      * @deprecated
      * @return array
      */
-    public function getCountriesPaymentMethods(): array
+    public function getCountriesPaymentMethods()
     {
         $country_payment_methods = [];
 
@@ -169,7 +169,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      *
      * @return array
      */
-    public static function getPaymentMethods(): array
+    public static function getPaymentMethods()
     {
         return (new PaymentMethod)->toArray();
     }
@@ -180,7 +180,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      * @param $country_iso_code
      * @return mixed
      */
-    public function getPaymentMethodsByIsoCode($country_iso_code): mixed
+    public function getPaymentMethodsByIsoCode($country_iso_code)
     {
         $payment_methods_ids = [];
 
@@ -201,7 +201,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      * @param $category
      * @return array
      */
-    public static function getPaymentMethodsByCategory($category): array
+    public static function getPaymentMethodsByCategory($category)
     {
         return self::find('category', $category);
     }
@@ -213,7 +213,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      * @param IngenicoCoreLibrary|null $coreLibrary
      * @return PaymentMethod\PaymentMethod|false
      */
-    public static function getPaymentMethodByBrand($brand, $coreLibrary = null): false|PaymentMethod\PaymentMethod
+    public static function getPaymentMethodByBrand($brand, $coreLibrary = null)
     {
         // Workaround for Afterpay/Klarna
         if (in_array($brand, ['Open Invoice DE', 'Open Invoice NL'])) {
@@ -250,7 +250,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      * @param $id
      * @return PaymentMethod\PaymentMethod|false
      */
-    public static function getPaymentMethodById($id): false|PaymentMethod\PaymentMethod
+    public static function getPaymentMethodById($id)
     {
         $paymentMethods = new PaymentMethod();
 
@@ -269,7 +269,7 @@ class PaymentMethod implements \Countable, \IteratorAggregate
      *
      * @return array
      */
-    public static function getPaymentCategories(): array
+    public static function getPaymentCategories()
     {
         return self::CATEGORY_LABELS;
     }

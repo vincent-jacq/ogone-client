@@ -219,7 +219,7 @@ class Order extends Data
      * @param $orderId
      * @return Order
      */
-    public function setOrderId($orderId): Order
+    public function setOrderId($orderId)
     {
         if (strlen($orderId) > 40) {
             throw new InvalidArgumentException("Orderid cannot be longer than 40 characters");
@@ -237,7 +237,7 @@ class Order extends Data
      * @param $amount
      * @return Order
      */
-    public function setAmount($amount): Order
+    public function setAmount($amount)
     {
         if ($amount < 0) {
             throw new InvalidArgumentException("Amount must be a positive number or 0");
@@ -255,7 +255,7 @@ class Order extends Data
      *
      * @return int
      */
-    public function getAmountInCents(): int
+    public function getAmountInCents()
     {
         if (!$amount = $this->getAmount()) {
             return 0;
@@ -270,7 +270,7 @@ class Order extends Data
      * @param string $locale
      * @return $this
      */
-    public function setLocale($locale): static
+    public function setLocale($locale)
     {
         if (!array_key_exists($locale, $this->allowedLanguages)) {
             throw new InvalidArgumentException('Invalid language ISO code');
@@ -285,7 +285,7 @@ class Order extends Data
      * @return string
      * @SuppressWarnings("Duplicates")
      */
-    public function getLocale(): string
+    public function getLocale()
     {
         if (!$this->hasData('locale')) {
             $this->setData('locale', self::DEFAULT_LOCALE);
@@ -304,7 +304,7 @@ class Order extends Data
      *
      * @return float
      */
-    public function getAvailableAmountForRefund(): float
+    public function getAvailableAmountForRefund()
     {
         return (float) bcsub($this->getAmount() ?? 0, $this->getTotalRefunded() ?? 0, 2);
     }
@@ -314,7 +314,7 @@ class Order extends Data
      *
      * @return float
      */
-    public function getAvailableAmountForCapture(): float
+    public function getAvailableAmountForCapture()
     {
         return (float) bcsub($this->getAmount() ?? 0, $this->getTotalCaptured() ?? 0, 2);
     }
@@ -324,7 +324,7 @@ class Order extends Data
      *
      * @return float
      */
-    public function getAvailableAmountForCancel(): float
+    public function getAvailableAmountForCancel()
     {
         return (float) bcsub($this->getAmount() ?? 0, $this->getTotalCancelled() ?? 0, 2);
     }
@@ -335,7 +335,7 @@ class Order extends Data
      * @param $currency
      * @return Order
      */
-    public function setCurrency($currency): Order
+    public function setCurrency($currency)
     {
         if (!in_array(strtoupper($currency), $this->allowedCurrencies)) {
             throw new InvalidArgumentException("Unknown currency");
@@ -349,7 +349,7 @@ class Order extends Data
      * @deprecated
      * @return $this
      */
-    public function getUserId(): static
+    public function getUserId()
     {
         return $this->getCustomerId();
     }
@@ -360,7 +360,7 @@ class Order extends Data
      * @param $userId
      * @return $this
      */
-    public function setUserId($userId): static
+    public function setUserId($userId)
     {
         return $this->setCustomerId($userId);
     }
@@ -370,7 +370,7 @@ class Order extends Data
      *
      * @return string
      */
-    public function getBillingFullName(): string
+    public function getBillingFullName()
     {
         return join(' ', [$this->getBillingFirstName(), $this->getBillingLastName()]);
     }
@@ -380,7 +380,7 @@ class Order extends Data
      *
      * @return array
      */
-    public function getBillingAddress(): array
+    public function getBillingAddress()
     {
         return array_filter(
             [$this->getBillingAddress1(), $this->getBillingAddress2(), $this->getBillingAddress3()],
@@ -393,7 +393,7 @@ class Order extends Data
      *
      * @return string
      */
-    public function getShippingFullName(): string
+    public function getShippingFullName()
     {
         return join(' ', [$this->getShippingFirstName(), $this->getShippingLastName()]);
     }
@@ -403,7 +403,7 @@ class Order extends Data
      *
      * @return array
      */
-    public function getShippingAddress(): array
+    public function getShippingAddress()
     {
         return array_filter(
             [$this->getShippingAddress1(), $this->getShippingAddress2(), $this->getShippingAddress3()],
@@ -416,7 +416,7 @@ class Order extends Data
      *
      * @return mixed
      */
-    public function getBillingCountryCode(): mixed
+    public function getBillingCountryCode()
     {
         if (!$this->hasData('billing_country_code')) {
             // For backward compatibility
@@ -431,7 +431,7 @@ class Order extends Data
      *
      * @return mixed
      */
-    public function getShippingCountryCode(): mixed
+    public function getShippingCountryCode()
     {
         if (!$this->hasData('shipping_country_code')) {
             // For backward compatibility
@@ -447,7 +447,7 @@ class Order extends Data
      * @return string
      * @SuppressWarnings("Duplicates")
      */
-    public function getHttpAccept(): string
+    public function getHttpAccept()
     {
         if (!$this->hasData('http_accept')) {
             $this->setData('http_accept', isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : null);
@@ -472,7 +472,7 @@ class Order extends Data
      * @return string
      * @SuppressWarnings("Duplicates")
      */
-    public function getHttpUserAgent(): string
+    public function getHttpUserAgent()
     {
         if (!$this->hasData('http_user_agent')) {
             $this->setData('http_user_agent', isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);
@@ -487,7 +487,7 @@ class Order extends Data
      * @param array $items
      * @return $this
      */
-    public function setItems(array $items = []): static
+    public function setItems(array $items = [])
     {
         return $this->setData('items', $items);
     }
@@ -497,7 +497,7 @@ class Order extends Data
      *
      * @return array
      */
-    public function getItems(): array
+    public function getItems()
     {
         $result = [];
         $items = $this->getData('items');
@@ -517,7 +517,7 @@ class Order extends Data
      *
      * @param mixed $orderId
      * @param string|null $paymentMode
-     * @return void
+     * @return ReturnUrl
      */
     public function getReturnUrls($orderId, $paymentMode = null)
     {
@@ -529,7 +529,7 @@ class Order extends Data
      *
      * @return bool
      */
-    public function isVirtual(): bool
+    public function isVirtual()
     {
         if ($this->hasData(OrderField::IS_VIRTUAL)) {
             return (bool) $this->getData(OrderField::IS_VIRTUAL);
