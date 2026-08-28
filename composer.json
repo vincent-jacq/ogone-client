@@ -1,7 +1,7 @@
 {
     "name": "vincent-jacq/ogone-client",
     "description": "Ingenico ePayments Core Library",
-    "version": "8.0.4",
+    "version": "8.1.0",
     "license": [
         "OSL-3.0"
     ],
@@ -12,9 +12,8 @@
             "homepage": "https://limegrow.com"
         },
         {
-            "name": "Oleg Iskusnyh",
-            "email": "oleg@iskusnyh.pro",
-            "homepage": "https://oleg.iskusnyh.pro/"
+            "name": "Vincent Jacquottin",
+            "email": "vjacquottin@sqli.com"
         }
     ],
     "support": {
@@ -25,7 +24,7 @@
         "ext-curl": "*",
         "ext-mbstring": "*",
         "ext-bcmath": "*",
-        "ingenico/ogone-sdk-php": "^3.1.0",
+        "vincent-jacq/ogone-sdk-php": "3.2.0",
         "monolog/monolog": "*",
         "league/iso3166": "*",
         "graylog2/gelf-php": "^2.0",
